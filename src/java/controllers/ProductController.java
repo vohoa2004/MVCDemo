@@ -90,9 +90,6 @@ public class ProductController extends HttpServlet {
                 searchDTO.validate();
                 categoryId = Integer.parseInt(categoryIdRaw);
             }
-            // hold search criteria on search bar for next request
-            request.setAttribute("productName", productName);
-            request.setAttribute("category", categoryIdRaw);
 
             // get search data
             List<Product> list = productDAO.list(productName, categoryId);
@@ -101,6 +98,10 @@ public class ProductController extends HttpServlet {
             } else {
                 throw new InvalidDataException("No Products Found!");
             }
+            
+            // hold search criteria on search bar for next request
+            request.setAttribute("productName", productName);
+            request.setAttribute("category", categoryIdRaw);
 
         }
 //      catch (ValidationException ex) {

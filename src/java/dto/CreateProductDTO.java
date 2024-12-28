@@ -87,7 +87,7 @@ public class CreateProductDTO implements DtoBase {
             errors.add(new ValidationError("productYear", "Product year must be a valid number."));
         }
         
-        // validate image
+        // validate image url
         if (image == null || image.trim().isEmpty()) {
             errors.add(new ValidationError("image", "Image URL cannot be empty."));
         }

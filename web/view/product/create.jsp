@@ -52,7 +52,7 @@
                     }
                 %>
             </select><br><br>
-            <input type="hidden" name="action" value="add">
+            <input type="hidden" name="action" value="add"> <!-- parameter action to handle add new product-->
             <button type="submit">Add Product</button>
         </form>
     </body>

@@ -41,7 +41,7 @@ public class CategoryDAO {
         } catch (ClassNotFoundException ex) {
             System.out.println("DBUtils not found.");
         } catch (SQLException ex) {
-            System.out.println("SQL Exception in getting product by id. Details: ");
+            System.out.println("SQL Exception in getting category by id. Details: ");
             ex.printStackTrace();
         }
         return c;
@@ -69,7 +69,7 @@ public class CategoryDAO {
         } catch (ClassNotFoundException ex) {
             System.out.println("DBUtils not found.");
         } catch (SQLException ex) {
-            System.out.println("SQL Exception in getting list of products. Details: ");
+            System.out.println("SQL Exception in getting list of categories. Details: ");
             ex.printStackTrace();
         }
         return list;
