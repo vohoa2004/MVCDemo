@@ -17,7 +17,7 @@
 
       + Update an existing product
 
-- Delete a product
+      + Delete a product
 
 You can also improve the views by adding CSS for better styling.
 
