@@ -39,6 +39,8 @@
                 <option value="<%=""%>"><%= "All categories"%></option>
 
             </select>
+            <label>Price: </label>
+            <input type="text" name="price" value="${requestScope.price}">
             <input type="submit" value="search">
         </form>
 
@@ -74,6 +76,20 @@
                 <td><%= p.getProductYear()%></td>
                 <td><img src="<%= p.getImage()%>" alt="product image" width="100" height="100"></td>
                 <td><%= p.getCategory().getName()%></td>
+                <td>
+                    <form action="Product" method="POST">
+                        <input type="hidden" name="id" value=<%= p.getId()%> />
+                        <input type="hidden" name="action" value="prepare-update" />
+                        <input type="submit" value="Update" />
+                    </form>
+                </td>
+                <td>
+                    <form action="Product" method="POST">
+                        <input type="hidden" name="id" value=<%= p.getId()%> />
+                        <input type="hidden" name="action" value="prepare-delete" />
+                        <input type="submit" value="Delete" />
+                    </form>
+                </td>
             </tr>
             <%
                 }
