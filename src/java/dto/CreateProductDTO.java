@@ -9,6 +9,9 @@ import exceptions.ValidationError;
 import exceptions.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import utils.ValidateRegex;
 
 /**
  *
@@ -81,29 +84,38 @@ public class CreateProductDTO implements DtoBase {
             int productYearValue = Integer.parseInt(productYear);
             int currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
             if (productYearValue <= 1900 || productYearValue > currentYear) {
-                errors.add(new ValidationError("productYear", "Product year must be between 1900 and the current year."));
+                errors.add(new ValidationError("product year", "Product year must be between 1900 and the current year."));
             }
         } catch (NumberFormatException e) {
-            errors.add(new ValidationError("productYear", "Product year must be a valid number."));
+            errors.add(new ValidationError("product year", "Product year must be a valid number."));
         }
         
         // validate image url
-        if (image == null || image.trim().isEmpty()) {
-            errors.add(new ValidationError("image", "Image URL cannot be empty."));
+        if (!isValidImageURL(image)) {
+            errors.add(new ValidationError("image", "Image URL is not valid!"));
         }
         
         // validate category
         try {
             int categoryIdValue = Integer.parseInt(categoryId);
             if (categoryIdValue <= 0) {
-                errors.add(new ValidationError("categoryId", "Category ID is invalid."));
+                errors.add(new ValidationError("category", "Category ID is invalid."));
             }
         } catch (NumberFormatException e) {
-            errors.add(new ValidationError("categoryId", "Category ID must be a valid number."));
+            errors.add(new ValidationError("category", "Category ID must be a valid number."));
         }
 
         if (!errors.isEmpty()) {
             throw new ValidationException(errors);
         }
+    }
+    
+    private boolean isValidImageURL(String url) {
+        if (url == null || url.trim().isEmpty()) {
+            return false;
+        }
+        Pattern IMAGE_URL_PATTERN = Pattern.compile(ValidateRegex.IMAGE_URL_REGEX);
+        Matcher matcher = IMAGE_URL_PATTERN.matcher(url);
+        return matcher.matches();
     }
 }

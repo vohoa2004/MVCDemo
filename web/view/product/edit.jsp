@@ -50,7 +50,7 @@
             <label for="name">Product Name:</label>
             <input type="text" id="name" name="name" value="${productToUpdate.name}" required><br><br>
 
-            <label for="price">Price:</label>
+            <label for="price">Price (USD):</label>
             <input type="text" id="price" name="price" value="${productToUpdate.price}" required><br><br>
 
             <label for="productYear">Product Year:</label>

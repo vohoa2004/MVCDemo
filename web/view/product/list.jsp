@@ -39,7 +39,7 @@
                 <option value="<%=""%>"><%= "All categories"%></option>
 
             </select>
-            <label>Price: </label>
+            <label>Price (Equals Or Under): </label>
             <input type="text" name="price" value="${requestScope.price}">
             <input type="submit" value="search">
         </form>
@@ -61,7 +61,7 @@
             <tr>
                 <th>No. </th>
                 <th>Product Name</th>
-                <th>Price</th>
+                <th>Price (USD)</th>
                 <th>Product Year</th>
                 <th>Image</th>
                 <th>Category</th>

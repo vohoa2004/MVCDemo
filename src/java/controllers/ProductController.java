@@ -35,7 +35,6 @@ public class ProductController extends HttpServlet {
     private final String PREPARE_CREATE = "Product?action=prepare-add";
     private final String EDIT_VIEW = "view/product/edit.jsp";
 
-    private final String PREPARE_DELETE = "Product?action=prepare-delete";
     private final String DELETE_CONFIRM_VIEW = "view/product/deleteConfirm.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
