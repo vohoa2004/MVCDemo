@@ -32,7 +32,7 @@ You can also improve the views by adding CSS for better styling.
 
 - Implement Account Functions:
 
-        + Register a new user (in Customer Role only, this simple demo assumes that Admin accounts are exsited in the database)
+        + Register a new user (in Customer Role only, this simple demo assumes that Staff accounts are exsited in the database)
 
         + Login, Logout (create session after login)
   
