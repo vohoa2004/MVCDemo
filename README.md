@@ -36,7 +36,7 @@ You can also improve the views by adding CSS for better styling.
 
         + Login, Logout (create session after login)
   
-        + Check authentication in Product management requests (must have session object to be allowed to CRUD products)
+        + Check authentication in Product management requests (check the session object)
   
 - Try to change the syntax of possible parts in JSP Pages from Scriptlet into JSTL.
   
