@@ -8,7 +8,9 @@
 
 - Technologies used: Java Servlets, JSP. The database script is designed for SQL Server.
 
-##Homework Requirements
+## Week 2:
+
+### Homework Requirements
 
 
 - To deepen your understanding of Java Servlets and JSP concepts, you can practice by developing additional features:
@@ -21,4 +23,21 @@
 
 You can also improve the views by adding CSS for better styling.
 
-### Deadline for Submission: 8:00 AM 4/1/2025
+#### Deadline for Submission: 8:00 AM 4/1/2025
+
+
+## Week 3:
+
+### Homework Requirements
+
+- Implement Account Functions:
+
+        + Register a new user (in Customer Role only, this simple demo assumes that Staff accounts are exsited in the database)
+
+        + Login, Logout (create session after login)
+  
+        + Check authentication in Product management requests (check the session object)
+  
+- Try to change the syntax of possible parts in JSP Pages from Scriptlet into JSTL.
+  
+#### Deadline for Submission: 8:00 AM 11/1/2025
