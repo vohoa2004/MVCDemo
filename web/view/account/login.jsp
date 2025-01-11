@@ -33,5 +33,11 @@
 
             <input type="submit" value="Login">
         </form>
+        <br>
+        <p>Does not have customer account?</p>
+        <form action="Account">
+            <input type="hidden" name="action" value="">
+            <input type="submit" value="Register">
+        </form>
     </body>
 </html>

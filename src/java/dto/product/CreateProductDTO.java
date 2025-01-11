@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dto;
+package dto.product;
 
+import dto.DtoBase;
 import exceptions.ValidationError;
 import exceptions.ValidationException;
 import java.util.ArrayList;

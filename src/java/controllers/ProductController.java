@@ -7,9 +7,10 @@ package controllers;
 
 import dao.CategoryDAO;
 import dao.ProductDAO;
-import dto.CreateProductDTO;
-import dto.SearchProductDTO;
-import dto.UpdateProductDTO;
+import dto.product.CreateProductDTO;
+import dto.product.SearchProductDTO;
+import dto.product.UpdateProductDTO;
+import entities.Account;
 import entities.Category;
 import entities.Product;
 import exceptions.InvalidDataException;
@@ -21,6 +22,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import utils.enums.AccountRole;
 
 /**
  *
@@ -28,6 +31,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ProductController", urlPatterns = "/Product")
 public class ProductController extends HttpServlet {
+
+    private final String LOGIN = "Auth";
 
     private final String LIST = "Product";
     private final String LIST_VIEW = "view/product/list.jsp";
@@ -44,31 +49,46 @@ public class ProductController extends HttpServlet {
         ProductDAO productDAO = new ProductDAO();
         CategoryDAO categoryDAO = new CategoryDAO();
 
+        HttpSession session = request.getSession(false);
+
+        Account account = (Account) session.getAttribute("account");
+
+        if (session == null || account == null) {
+            response.sendRedirect(LOGIN);
+            return;
+        }
+
         String action = request.getParameter("action");
+
         if (action == null) {
             list(request, response, categoryDAO, productDAO);
         } else {
-            switch (action) { // thay bang if cung duoc
-                case "prepare-add":
-                    prepareAdd(request, response, categoryDAO);
-                    break;
-                case "add":
-                    add(request, response, categoryDAO, productDAO);
-                    break;
-                case "prepare-update":
-                    prepareUpdate(request, response, categoryDAO, productDAO);
-                    break;
-                case "update":
-                    update(request, response, categoryDAO, productDAO);
-                    break;
-                case "prepare-delete":
-                    prepareDelete(request, response, productDAO);
-                    break;
-                case "delete":
-                    delete(request, response, productDAO);
-                    break;
-                default:
-                    list(request, response, categoryDAO, productDAO);
+            if (account.getRole() == AccountRole.STAFF) {
+                switch (action) { // thay bang if cung duoc
+                    case "prepare-add":
+                        prepareAdd(request, response, categoryDAO);
+                        break;
+                    case "add":
+                        add(request, response, categoryDAO, productDAO);
+                        break;
+                    case "prepare-update":
+                        prepareUpdate(request, response, categoryDAO, productDAO);
+                        break;
+                    case "update":
+                        update(request, response, categoryDAO, productDAO);
+                        break;
+                    case "prepare-delete":
+                        prepareDelete(request, response, productDAO);
+                        break;
+                    case "delete":
+                        delete(request, response, productDAO);
+                        break;
+                    default:
+                        list(request, response, categoryDAO, productDAO);
+                        break;
+                }
+            } else {
+                list(request, response, categoryDAO, productDAO);
             }
         }
     }

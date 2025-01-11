@@ -4,9 +4,17 @@
         <servlet-name>AuthController</servlet-name>
         <servlet-class>controllers.AuthController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Account</servlet-name>
+        <servlet-class>controllers.AccountController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AuthController</servlet-name>
         <url-pattern>/Auth</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Account</servlet-name>
+        <url-pattern>/Account</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Auth</welcome-file>

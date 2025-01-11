@@ -8,6 +8,7 @@
 <%@page import="entities.Category"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,9 +16,11 @@
         <title>Product Page</title>
     </head>
     <body>
+        <jsp:include page="../layout/header.jsp" flush="true"/>
         <!-- Search by category(drop down) and name (text box) - Add -->
         <h1>Product Page</h1>
         <br>
+        <h2 class="text-primary"> Login user: ${sessionScope.account.username}</h2>
 
         <!--SEARCH FORM-->
         <form action="Product" method="GET">

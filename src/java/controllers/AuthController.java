@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -19,27 +20,72 @@ import javax.servlet.http.HttpServlet;
  */
 public class AuthController extends HttpServlet {
     private final String LIST = "Product";
-    private final String LIST_VIEW = "view/product/list.jsp";
     private final String LOGIN_VIEW = "view/account/login.jsp";
     
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher(LOGIN_VIEW).forward(req, resp);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action == null || action.equals("") || action.equals("login")) {
+            request.getRequestDispatcher(LOGIN_VIEW).forward(request, response);
+        } else if (action.equals("logout")) { 
+            logout(request, response);
+        }
+    }
+    
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+
+        AccountDAO accountDAO = new AccountDAO();
+
+        if (action == null || action.equals("")) {
+            login(request, response, accountDAO);
+        }
+    }
+    
+    
+    private void login(HttpServletRequest request, HttpServletResponse response, AccountDAO accountDAO)
+            throws ServletException, IOException {
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        Account account = accountDAO.getByUsernamePassword(username, password);
+
+        if (account != null) {
+            HttpSession session = request.getSession(true);
+            session.setAttribute("account", account);
+            response.sendRedirect(LIST);
+        } else {
+            String msg = "Username or password is wrong!";
+            request.setAttribute("error", msg);
+            request.getRequestDispatcher(LOGIN_VIEW).forward(request, response);
+        }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        
-        AccountDAO accountDAO = new AccountDAO();
-        Account account = accountDAO.getByUsernamePassword(username, password);
-        if (account != null) {
-            resp.sendRedirect(LIST);
+    private void logout(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("account") != null) {
+            session.invalidate();
         }
-        else {
-            req.setAttribute("error", "Wrong username or password"); 
-            req.getRequestDispatcher(LOGIN_VIEW).forward(req, resp);
-        }
+        request.getRequestDispatcher(LOGIN_VIEW).forward(request, response);
     }
 }

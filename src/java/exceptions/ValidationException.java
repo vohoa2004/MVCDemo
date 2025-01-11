@@ -26,7 +26,7 @@ public class ValidationException extends Exception {
     public String getMessage() {
         StringBuilder message = new StringBuilder("Validation failed: ");
         for (ValidationError error : errors) {
-            message.append("\n").append(error.getField()).append(": ").append(error.getMessage());
+            message.append(error.getField()).append(": ").append(error.getMessage()).append(" |");
         }
         return message.toString();
     }
